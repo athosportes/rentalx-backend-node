@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Specification } from '../../model/Specification';
+import { Specification } from '../../entities/Specification';
 import { CreateSpecifitaionService } from '../createSpecification/CreateSpecificationUseCase';
 import { CreateCategoryUseCase } from './CreateCategoryUseCase';
 
