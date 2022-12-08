@@ -1,7 +1,7 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
-@Entity('cateroies')
+@Entity('categories')
 class Category {
 
   @PrimaryGeneratedColumn('uuid')
@@ -13,7 +13,7 @@ class Category {
   @Column()
   description: string;
   
-  @Column('date')
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
 }

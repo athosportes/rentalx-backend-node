@@ -1,41 +1,23 @@
+import { AppDataSource } from "../../../../data-source";
 import { Specification } from "../../entities/Specification";
 import { ICreateSpecificationDTO, ISpecificationsRepository } from "../ISpecificationsRepository";
 
 
 class SpecificationsRepository implements ISpecificationsRepository {
+  private repository = AppDataSource.getRepository(Specification);
 
-  private specifications: Specification[];
+    async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+      const newSpecification = this.repository.create({
+        name,
+        description
+      });
 
-  private static INSTANCE: SpecificationsRepository;
-
-  private constructor() {
-    this.specifications = [];
-  }
-
-  public static getInstance(): SpecificationsRepository {
-
-    if(!this.INSTANCE) {
-      this.INSTANCE = new SpecificationsRepository;
+      await this.repository.save(newSpecification);
     }
 
-    return this.INSTANCE;
-  }
-
-  create({ name, description }: ICreateSpecificationDTO): void {
-    const specification = new Specification();
-
-    Object.assign(specification, {
-      name,
-      description,
-      createdAt: new Date()
-    });
-
-    this.specifications.push(specification);
-  }
-
-  findByname(name: string): Specification {
-    return this.specifications.find(e => e.name === name);
-  }
+    async findByname(name: string): Promise<Specification | null> {
+      return await this.repository.findOneBy({ name });
+    }
 
 }
 

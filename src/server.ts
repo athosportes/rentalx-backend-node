@@ -4,6 +4,8 @@ import { router } from './routes';
 import { AppDataSource } from './data-source';
 import swwagerFile from './swagger.json';
 
+import './shared/container'
+
 
 AppDataSource.initialize().then(() => {
   const app = express();
